@@ -1,17 +1,14 @@
 import React from "react";
 import '../Styles/Button.css'
 
-function Button(props){
-
-    const isOperator = value => {
-        return isNaN(value) && (value != '.') && (value != '=');
-    };
-
+function Button({text, isClickButton, manageClick}){
+    
     return(
-        <div className={`button-container ${isOperator(props.children) ? 'operator' : ''}`.trimEnd()}>
-         {props.children}
-        </div>
-    )
+        <button className={isClickButton ? 'click-button' : 'restart-button'}
+        onClick={manageClick} >  
+            {text}
+        </button>
+    );
 }
 
 export default Button;
