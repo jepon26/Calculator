@@ -1,70 +1,67 @@
-
-import './App.css';
-import calculatorLogo from './img/calculator.png'
-import Button from './components/Button';
-import Screen from './components/Screen';
+import "./App.css";
+import calculatorLogo from "./img/calculator.png";
+import Button from "./components/Button";
+import Screen from "./components/Screen";
+import ClearButton from "./components/ClearButton";
+import { useState } from 'react';
+import {evaluate} from 'mathjs';
 
 function App() {
+  
+const [input, setInput] = useState('');
+const addInput = value => {
+  setInput(input + value);
+};
 
-const manageClick = () => {
-  console.log('Click');
-}
+const calculateResult = () => {
+  if (input) {
+    setInput(evaluate(input))
+  } else {
+    alert('please enter values')
+  }
+};
 
-
-const restartCounter = () => {
-  console.log('Restart');
-}
 
   return (
     <div className="App">
-      <div className='calculator-logo-container'>
-      <img 
-      src={calculatorLogo}
-      className='calculator-logo'
-      alt='Calculator Logo' />
-      </div>
-      <div className='calculator-container'>
-        <Screen/>
-        <div className='row'>
-          <Button>1</Button>
-          <Button>2</Button>
-          <Button>3</Button>
-          <Button>+</Button>
-        </div>
-        <div className='row'>
-          <Button>4</Button>
-          <Button>5</Button>
-          <Button>6</Button>
-          <Button>-</Button>
-        </div>
-        <div className='row'>
-          <Button>7</Button>
-          <Button>8</Button>
-          <Button>9</Button>
-          <Button>*</Button>
-        </div>
-        <div className='row'>
-          <Button>=</Button>
-          <Button>0</Button>
-          <Button>.</Button>
-          <Button>/</Button>
-        </div>
-        <div className='row'>
-
-        </div>
-        <Button
-        text='Click'
-        isClickButton={true}
-        manageClick={manageClick} />
-        <Button
-        text='Restart'
-        isClickButton={false}
-        manageClick={restartCounter}
+      <div className="calculator-logo-container">
+        <img
+          src={calculatorLogo}
+          className="calculator-logo"
+          alt="Calculator Logo"
         />
-
-
-
-            
+      </div>
+      <div className="calculator-container">
+        <Screen input={input}/>
+        <div className="row">
+          <Button manageClick={addInput}>1</Button>
+          <Button manageClick={addInput}>2</Button>
+          <Button manageClick={addInput}>3</Button>
+          <Button manageClick={addInput}>+</Button>
+        </div>
+        <div className="row">
+          <Button manageClick={addInput}>4</Button>
+          <Button manageClick={addInput}>5</Button>
+          <Button manageClick={addInput}>6</Button>
+          <Button manageClick={addInput}>-</Button>
+        </div>
+        <div className="row">
+          <Button manageClick={addInput}>7</Button>
+          <Button manageClick={addInput}>8</Button>
+          <Button manageClick={addInput}>9</Button>
+          <Button manageClick={addInput}>*</Button>
+        </div>
+        <div className="row">
+          <Button manageClick={calculateResult}>=</Button>
+          <Button manageClick={addInput}>0</Button>
+          <Button manageClick={addInput}>.</Button>
+          <Button manageClick={addInput}>/</Button>
+        </div>
+        <div className="row">
+          <ClearButton manageClear={() => setInput('')}>
+            Clear
+          </ClearButton>
+        </div>
       </div>
     </div>
   );
